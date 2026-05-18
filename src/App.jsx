@@ -124,7 +124,7 @@ async function countPiecesWithAI(base64, mediaType, identifier) {
     method: "POST", headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       model: "claude-sonnet-4-6", max_tokens: 200,
-      system: `Sei un sistema inventario per magazzino ricambi bici.
+      system: `Sei un sistema di conteggio inventario per magazzino ricambi bici.
 Conta i pezzi visibili nella foto del cassettone/ripiano.
 Rispondi SOLO in JSON senza markdown:
 {"count":<intero>,"confidence":"alta"|"media"|"bassa","note":"<max 60 char>"}

@@ -138,7 +138,9 @@ Se non riesci: count:-1.`,
   if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`); // BUG FIX B
   const d = await resp.json();
   const raw = d.content?.find(b => b.type === "text")?.text || "{}";
-  return JSON.parse(raw.replace(/```json|```/g,"").trim());
+const match = raw.match(/\{[\s\S]*\}/);
+  if (!match) return { count: -1, confidence: "bassa", note: "Risposta AI non valida" };
+  return JSON.parse(match[0]);
 }
 
 // ─── EAN web lookup ───────────────────────────────────────────────────────────
@@ -157,7 +159,9 @@ Rispondi SOLO in JSON senza markdown:
   if (!resp.ok) throw new Error(`HTTP ${resp.status}`); // BUG FIX B (web lookup)
   const d = await resp.json();
   const raw = d.content?.filter(b => b.type === "text").map(b => b.text).join("") || "{}";
-  return JSON.parse(raw.replace(/```json|```/g,"").trim());
+  const match = raw.match(/\{[\s\S]*\}/);
+  if (!match) return { found: false };
+  return JSON.parse(match[0]);
 }
 
 // ─── Excel export (ExcelJS — no vulnerabilities) ─────────────────────────────

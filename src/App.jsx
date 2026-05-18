@@ -123,7 +123,7 @@ async function countPiecesWithAI(base64, mediaType, identifier) {
   const resp = await fetch("/api/chat", {
     method: "POST", headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      model: "claude-sonnet-4-20250514", max_tokens: 200,
+      model: "claude-sonnet-4-6", max_tokens: 200,
       system: `Sei un sistema inventario per magazzino ricambi bici.
 Conta i pezzi visibili nella foto del cassettone/ripiano.
 Rispondi SOLO in JSON senza markdown:
@@ -146,7 +146,7 @@ async function lookupEANweb(ean) {
   const resp = await fetch("/api/chat", {
     method: "POST", headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      model: "claude-sonnet-4-20250514", max_tokens: 250,
+      model: "claude-sonnet-4-6", max_tokens: 250,
       tools: [{ type: "web_search_20250305", name: "web_search" }],
       system: `Assistente magazzino bici. Dato un EAN trova il prodotto.
 Rispondi SOLO in JSON senza markdown:
